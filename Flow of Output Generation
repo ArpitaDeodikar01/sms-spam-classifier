@@ -1,0 +1,65 @@
+
+### **Flow of Output Generation**
+
+1. **User Input**:
+
+   * The user enters a message (SMS or email) into the **Streamlit** web application.
+   * Example: `"Congratulations! You've won a $1000 gift card. Claim now!"`
+
+2. **Text Preprocessing**:
+
+   * The input text goes through the **preprocessing** step to prepare it for analysis. The text is processed using the following steps:
+
+     * **Lowercasing**: Converts the text to lowercase to maintain uniformity (e.g., "CONGRATULATIONS" becomes "congratulations").
+     * **Tokenization**: The text is split into individual words or tokens (e.g., `"Congratulations! You've won"` → `["congratulations", "you've", "won"]`).
+     * **Removing Non-Alphanumeric Characters**: Removes any punctuation or special characters (e.g., `["congratulations", "you've", "won"]` → `["congratulations", "youve", "won"]`).
+     * **Stopword Removal**: Common words like "the", "and", "is", etc., that don't carry meaningful information, are removed.
+     * **Stemming**: Words are reduced to their root form (e.g., "winning" becomes "win").
+
+   * Output of preprocessing (example):
+
+     * **Input**: `"Congratulations! You've won a $1000 gift card. Claim now!"`
+     * **Preprocessed Text**: `"congratulation youve won 1000 gift card claim now"`
+
+3. **Text Vectorization**:
+
+   * The preprocessed text is then **vectorized** using the **TF-IDF (Term Frequency-Inverse Document Frequency)** vectorizer.
+
+   * TF-IDF is used to convert the text into numerical features (a vector), where each word's importance is represented as a number.
+
+   * The vectorizer compares the input text to a corpus of text used to train the model, assigning weights to words based on their frequency in the input and across the training dataset.
+
+   * Example: After vectorization, the message `"congratulation youve won 1000 gift card claim now"` might become a vector like:
+
+     * `[0.123, 0.234, 0.567, 0.891, 0.432, 0.654, ...]`
+
+4. **Model Prediction**:
+
+   * After vectorization, the input text (now in vector form) is passed to the trained **Multinomial Naive Bayes** model.
+
+   * The model uses the **features (words)** in the vector to classify the text as either **spam** (1) or **not spam** (0).
+
+   * The model compares the input vector to the patterns it learned during training and predicts a class.
+
+   * For example, the model might predict that the message is **spam** (1).
+
+5. **Output**:
+
+   * Based on the model's prediction, the application displays the result:
+
+     * If the model predicts **1 (spam)**, it will display **"Spam"**.
+     * If the model predicts **0 (not spam)**, it will display **"Not Spam"**.
+
+   * Example:
+
+     * **Input**: `"Congratulations! You've won a $1000 gift card. Claim now!"`
+     * **Prediction**: **Spam**
+     * **Output**: "Spam"
+
+### **Summary of the Process:**
+
+```
+User Input → Preprocessing (Lowercasing, Tokenization, Stopword Removal, Stemming) → Vectorization (TF-IDF) → Model Prediction (Multinomial Naive Bayes) → Output (Spam or Not Spam)
+```
+
+This process happens almost instantaneously on the web application, providing the user with a classification of their message (whether it is spam or not).
