@@ -1,7 +1,3 @@
-Here’s a **README.md** template for your SMS Spam Classifier project:
-
----
-
 # **SMS Spam Classifier**
 
 ## **Project Overview**
@@ -56,21 +52,7 @@ The data is used to train the model, which can then predict whether new messages
 
 * `model.pkl`: The trained Naive Bayes model.
 * `vectorizer.pkl`: The fitted TF-IDF vectorizer.
-
-### 4. Run the Application:
-
-To start the web application, run:
-
-```bash
-streamlit run app.py
-```
-
-The application will launch in your browser where you can enter messages to classify them as spam or not spam.
-
+* 
 ## **Conclusion**
 
 This project demonstrates how machine learning can be used to classify text messages as spam or not spam. The model leverages **Multinomial Naive Bayes** for classification and **TF-IDF vectorization** for feature extraction. It can be deployed as a web application using **Streamlit**, making it accessible for real-time predictions.
-
----
-
-Feel free to customize the **README.md** as per your needs! Let me know if you'd like any additional information.
